@@ -1,0 +1,64 @@
+// app.js
+const express = require('express');
+const bodyParser = require('body-parser');
+const product = require('./routes/product.route');
+const app = express();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
+app.use('/products', product);
+let port = 1234;
+app.listen(port, () => {
+    console.log('Server is up and running on port numner ' + port);
+});
+const dbConfig = 'mongodb://localhost:27017/test';
+const mongoose = require('mongoose');
+mongoose.set('useCreateIndex', true);
+mongoose.connect(dbConfig, {
+    useNewUrlParser: true
+}).then(() => {
+    console.log("Successfully connected to the database");
+}).catch(err => {
+    console.log('Could not connect to the database. Exiting now...', err);
+    process.exit();
+});
+
+//Product.model.js
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+let ProductSchema = new Schema({
+    name: {type: String, required: true, max: 100},
+    price: {type: Number, required: true},
+});
+module.exports = mongoose.model('Product', ProductSchema);
+
+//product.route.js
+const express = require('express');
+const router = express.Router();
+const product_controller = require('../controllers/product.controller');
+router.post('/create', product_controller.product_create);
+router.get('/:id', product_controller.product_details);
+module.exports = router;
+
+//product.controller.js
+const Product = require('../models/product.model');
+exports.product_create = function (req, res) {
+    let product = new Product(
+        {
+            name: req.body.name,
+            price: req.body.price
+        }
+    );
+    product.save(function (err) {
+        if (err) {
+            return next(err);
+        }
+        res.send('Product Created successfully')
+    })
+};
+
+exports.product_details = function (req, res) {
+    Product.findById(req.params.id, function (err, product) {
+        if (err) return next(err);
+        res.send(product);
+    })
+};

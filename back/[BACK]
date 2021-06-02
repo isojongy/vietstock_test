@@ -1,0 +1,14 @@
+[BACK]
+ 1. Hệ thống pin mặt trời đang bị hỏng 1 phần, trong đó bạn phải tái sử dụng các phần của tấm pin mặt trời. Biết rằng tấm pin chỉ hoạt động khi cắt thành hình vuông, Hãy viết công thức để có thể chia tấm pin thành các hình vuông lớn nhất nhận được.
+Ví dụ:
+Inputs: (int) area = 12
+Output: (int list) [9, 1, 1, 1]
+Inputs: (int) area = 15324
+Output: (int list) [15129, 169, 25, 1]
+--- 
+function tinhtoan(area) {
+}
+2. Hãy xây 1 cấu trúc code gồm tất cả các pipeline, boiler-plate cần thiết trong pipeline lập trình, kiểm thử và vận hàng code của mình. 
+3. Viết 1 test case sử dụng framework mà bạn biết và demo code coverage cho phần bạn viết
+4. Vẽ 1 design hệ thống api theo hướng microservices và các công nghệ có thể sử dụng trong ms. Note, hãy vẽ các hệ thống system cơ bản xung quanh thường được sử dụng trong MS.
+5. Hãy code 1 api, connect được database và trả về thông tin từ database đó. Note, hãy làm tốt dựa thêm pipeline và coding standard.
